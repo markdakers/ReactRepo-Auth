@@ -10,8 +10,13 @@
         // https://github.com/airbnb/javascript/issues/982
         "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
         "react/prefer-stateless-function": 0,
+        "import/prefer-default-export": 0,
+        "import/first": 0,
         "max-len": ["warn", 100, 1, {"ignoreComments": true,"ignoreUrls": true}],
         "indent": ["error",4],
-        "react/jsx-indent": ["error", 4]
+        "react/jsx-indent": ["error", 4],
+        "react/jsx-indent-props": ["error", 4],
+        "object-shorthand": "warn",
+        "arrow-body-style": "warn"
     }
 }

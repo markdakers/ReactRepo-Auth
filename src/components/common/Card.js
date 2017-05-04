@@ -19,13 +19,11 @@ const styles = {
     },
 };
 
-const Card = (props) => {
-    return (
-        <View style={styles.containerStyle}>
-            {props.children}
-        </View>
+const Card = props => (
+    <View style={styles.containerStyle}>
+        {props.children}
+    </View>
     );
-};
 
 Card.propTypes = { children: PropTypes.oneOfType([
     PropTypes.arrayOf(React.PropTypes.node),
@@ -33,4 +31,4 @@ Card.propTypes = { children: PropTypes.oneOfType([
 };
 Card.defaultProps = { children: [] };
 
-export default Card;
+export { Card };

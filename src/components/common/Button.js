@@ -21,7 +21,7 @@ const styles = {
         fontWeight: '600',
         paddingTop: 10,
         paddingBottom: 10,
-    }
+    },
 };
 
 const Button = ({ onPress, children }) => {
@@ -45,4 +45,4 @@ Button.defaultProps = {
     children: [],
 };
 
-export default Button;
+export { Button };

@@ -14,15 +14,13 @@ const styles = {
     },
 };
 
-const CardSection = (props) => {
-    return (
-        <View style={styles.ContainerStyle}>
-            {props.children}
-        </View>
+const CardSection = props => (
+    <View style={styles.ContainerStyle}>
+        {props.children}
+    </View>
     );
-};
 
 CardSection.propTypes = { children: PropTypes.node };
 CardSection.defaultProps = { children: [] };
 
-export default CardSection;
+export { CardSection };
