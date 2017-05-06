@@ -55181,6 +55181,14 @@ var _firebase2 = babelHelpers.interopRequireDefault(_firebase);
 
 var _common = require(422       ); // 422 = ./common
 
+var styles = {
+    errorTextStyle: {
+        fontSize: 20,
+        alignSelf: 'center',
+        color: 'red'
+    }
+};
+
 var LoginForm = function (_Component) {
     babelHelpers.inherits(LoginForm, _Component);
 
@@ -55204,9 +55212,10 @@ var LoginForm = function (_Component) {
                 email = _state.email,
                 password = _state.password;
 
-            _firebase2.default.auth.signInWithEmailAndPassword(email, password).catch(function () {
-                _firebase2.default.auth.createUserWithEmailAndPassword(email, password).catch(function () {
-                    _this2.setState({ error: 'Authentication Failed' });
+            _firebase2.default.auth().signInWithEmailAndPassword(email, password).catch(function () {
+                _this2.setState({ error: 'Creating User' });
+                _firebase2.default.auth().createUserWithEmailAndPassword(email, password).catch(function (err) {
+                    _this2.setState({ error: 'Authentication Failed - ' + err });
                 });
             });
         }
@@ -55245,7 +55254,7 @@ var LoginForm = function (_Component) {
                 ),
                 _react2.default.createElement(
                     _reactNative.Text,
-                    null,
+                    { style: styles.errorTextStyle },
                     this.state.error
                 ),
                 _react2.default.createElement(

@@ -1,9 +1,11 @@
 {
+    "parser": "babel-eslint",
     "extends": "airbnb",
     "plugins": [
         "react",
         "jsx-a11y",
-        "import"
+        "import",
+        "babel"
     ],
     "rules": {
         // `.jsx` extension cannot be used with React Native
@@ -18,6 +20,9 @@
         "react/jsx-indent-props": ["error", 4],
         "react/jsx-boolean-value": "warn",
         "object-shorthand": "warn",
-        "arrow-body-style": "warn"
+        "arrow-body-style": "warn",
+        "babel/new-cap": 1,
+        "babel/no-invalid-this": 1,
+        "babel/semi": 1
     }
 }
