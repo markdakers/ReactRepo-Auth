@@ -1,24 +1,57 @@
-import React, { Component } from "react";
-import { TextInput, Platform } from 'react-native';
+import React, { Component } from 'react';
+import { Text } from 'react-native';
+import firebase from 'firebase';
 import { Button, Card, CardSection, Input } from './common';
 
 class LoginForm extends Component {
-    state = { email: "" };
+    // state = {email: '', password: '', error: ''};   
+    constructor() {
+        super();
+        this.state = { email: '', password: '', error: '' };
+        // Using arrow functions or binding in JSX is a bad practice that hurts performance
+        // because each render will create a new function, which means that the garbage collector
+        // will have more work than needed.
+        this.onButtonPress = this.onButtonPress.bind(this);
+    }
+
+    onButtonPress() {
+        const { email, password } = this.state;
+        firebase.auth.signInWithEmailAndPassword(email, password)
+            .catch(() => {
+                firebase.auth.createUserWithEmailAndPassword(email, password)
+                    .catch(() => {
+                        this.setState({ error: 'Authentication Failed' });
+                    });
+            });
+    }
 
     render() {
         return (
             <Card>
                 <CardSection>
-                    <Input 
-                        label="Email" 
-                        placeholder = "user@gmail.com"
+                    <Input
+                        label="Email"
+                        placeholder="user@gmail.com"
                         value={this.state.email} // Doesn't seem like this is required despite rerender happening on setState
                         onChangeText={text => this.setState({ email: text })}
                     />
                 </CardSection>
-                <CardSection />
                 <CardSection>
-                    <Button>Log in</Button>
+                    <Input
+                        secureTextEntry={true}
+                        label="Password"
+                        placeholder="password"
+                        value={this.state.password}
+                        onChangeText={password => this.setState({ password })}
+                    />
+                </CardSection>
+
+                <Text>
+                    {this.state.error}
+                </Text>
+
+                <CardSection>
+                    <Button onPress={this.onButtonPress}>Log in</Button>
                 </CardSection>
             </Card>
         );

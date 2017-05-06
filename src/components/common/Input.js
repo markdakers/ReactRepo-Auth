@@ -26,12 +26,13 @@ const styles = {
     },
 };
 
-const Input = ({ label, value, onChangeText, placeholder }) => {
+const Input = ({ label, value, onChangeText, placeholder, secureTextEntry }) => {
     return (
         <View style={styles.containerStyle}>
             <Text style={styles.labelStyle}>{ label }</Text>
             <TextInput
                 placeholder={placeholder}
+                secureTextEntry={secureTextEntry}
                 autoCorrect={false}
                 value={value} // Doesn't seem like this is required despite rerender happening on setState
                 onChangeText={onChangeText}
@@ -47,9 +48,10 @@ Input.propTypes = {
     value: PropTypes.string,
     onChangeText: PropTypes.func,
     placeholder: PropTypes.string,
+    secureTextEntry: PropTypes.bool,
 };
 
-Input.defaultProps = { label: '', value: '', onChangeText: null, placeholder: '' };
+Input.defaultProps = { label: '', value: '', onChangeText: null, placeholder: '', secureTextEntry: false };
 
 export { Input };
 
