@@ -17,7 +17,7 @@ class LoginForm extends Component {
 
     constructor() {
         super();
-        this.state = { email: '', password: '', error: '', isLoading: false };
+        this.state = { email: '', password: '', error: '', loading: false };
         // Using arrow functions or binding in JSX is a bad practice that hurts performance
         // because each render will create a new function, which means that the garbage collector
         // will have more work than needed.
@@ -28,7 +28,7 @@ class LoginForm extends Component {
 
     onButtonPress() {
         const { email, password } = this.state;
-        this.setState({ error: '', isLoading: true });
+        this.setState({ error: '', loading: true });
 
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then(this.onLoginSuccess.bind(this))
@@ -37,7 +37,7 @@ class LoginForm extends Component {
                 firebase.auth().createUserWithEmailAndPassword(email, password)
                     .then(this.onLoginSuccess.bind(this))
                     .catch((err) => {
-                        this.onLoginFailure.bind(this, err);
+                        this.onLoginFailure.call(this, err);
                     });
             });
     }
@@ -54,12 +54,12 @@ class LoginForm extends Component {
     onLoginFailure(err) {
         this.setState({
             loading: false,
-            error: { error: `Authentication Failed - ${err}` },
+            error: `Authentication Failed - ${err.message}`,
         });
     }
 
     renderButton() {
-        if (this.state.isLoading) {
+        if (this.state.loading) {
             return <Spinner size="small" />;
         }
         return <Button onPress={this.onButtonPress}>Log in</Button>;
